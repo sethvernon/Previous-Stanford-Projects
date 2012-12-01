@@ -25,5 +25,6 @@
 // additional values.
 @property (retain) NSArray *imagesSortDescriptors;
 @property (assign) CGFloat thumbnailScale;
+@property (nonatomic, retain) NSString *file;
 
 @end

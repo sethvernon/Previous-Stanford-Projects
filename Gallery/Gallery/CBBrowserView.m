@@ -33,6 +33,8 @@
 @synthesize imagesSortDescriptors;
 @synthesize thumbnailScale;
 
+@synthesize file;
+
 - (void) loadView
 
 {
