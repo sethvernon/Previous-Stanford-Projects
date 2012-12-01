@@ -128,13 +128,13 @@
     NSArray *fileNames = [pboard propertyListForType: NSFilenamesPboardType];
     NSInteger indexCount = 0;
     if (fileNames.count < 1) return NO;
+    
         for (NSString *file in fileNames);
         {
             CBPhoto *newItem    = [CBPhoto photoInDefaultContext];
+            newItem.filePath    = file;
             
-            newItem.filePath   = file;
-            [newItems AddObject:newItem];
-            
+            [newItems addObject:newItem];
             [indexSet addIndex: dropIndex+indexCount];
             newItem.album = album;
             indexCount++;
