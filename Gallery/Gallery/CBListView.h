@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-@interface CBListView : NSObject
+@class CBMainWindow;
+
+@interface CBListView : NSViewController
+
+@property (assign) CBMainWindow *mainWindowController;
+@property (retain) IBOutlet NSTableView *imagesTable;
+@property (retain) IBOutlet NSArrayController *imagesArrayController;
+
+- (IBAction) tableViewItemDoubleClicked:(id)sender;
 
 @end
