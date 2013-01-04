@@ -60,7 +60,7 @@
 		
 		// construct the explicit animation
 		CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
-		animation.duration = 1;
+		animation.duration = 10;
 		animation.repeatCount = 50;
 		CAMediaTimingFunction *clunk = [CAMediaTimingFunction functionWithControlPoints:.9 :.1 :.7 :.9];
 		animation.timingFunction = clunk;
@@ -89,6 +89,16 @@
 	ace.bounds = CGRectMake(0, 0, 30, 30);
 	ace.position = CGPointMake(20, 20);
 	[spadeAce addSublayer:ace];
+    
+    CATextLayer *aceUpsideDown = [[CATextLayer alloc] init];
+    aceUpsideDown.string = @"A";
+    aceUpsideDown.bounds = CGRectMake(0, 0, 40, 30);
+	aceUpsideDown.position = CGPointMake(175, 255);
+	aceUpsideDown.font = [UIFont fontWithName:@"Ariel" size:50];
+	[aceUpsideDown setAffineTransform:CGAffineTransformMakeRotation(M_PI)];
+//	aceUpsideDown.font = [UIColor blackColor];
+//	transform = CATransform3DRotate(transform, M_PI, 0, 0, 1);
+	[spadeAce addSublayer:aceUpsideDown];
 	
 	
 	
