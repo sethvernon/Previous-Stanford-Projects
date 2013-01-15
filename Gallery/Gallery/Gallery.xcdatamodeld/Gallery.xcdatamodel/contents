@@ -11,7 +11,7 @@
         <relationship name="album" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="photos" inverseEntity="Album" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Album" positionX="72" positionY="332" width="128" height="73"/>
         <element name="Photo" positionX="-144" positionY="122" width="128" height="103"/>
+        <element name="Album" positionX="117" positionY="449" width="128" height="73"/>
     </elements>
 </model>

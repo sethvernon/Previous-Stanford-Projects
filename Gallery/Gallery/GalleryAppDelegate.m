@@ -12,20 +12,20 @@
 #import "CBAlbum.h"
 #import "CBPhoto.h"
 
-
-
 @implementation GalleryAppDelegate
 
-@synthesize mainWindow;
-@synthesize mainWindowController;
-@synthesize selectedAlbum;
+@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+@synthesize managedObjectModel = _managedObjectModel;
+@synthesize managedObjectContext = _managedObjectContext;
+
+@synthesize mainWindow = _mainWindow;
+@synthesize mainWindowController = _mainWindowController;
+@synthesize selectedAlbum = _selectedAlbum;
 
 @synthesize window;
-@synthesize persistentStoreCoordinator;
 @synthesize managedObjectModel;
-@synthesize managedObjectContext;
-
-
+@synthesize persistentStoreCoordinator;
+@synthesize managedObjectContect;
 
 - (IBAction)newAlbum:(id)sender;
 {
@@ -40,10 +40,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    CBMainWindow *windowController;
-    windowController = [[[CBMainWindow alloc] init] initWithWindowNibName:@"CBMainWindow"];
-    [windowController showWindow:nil];
-    self.mainWindowController = windowController;
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "com.seth.vernon.Gallery" in the user's Application Support directory.
@@ -57,20 +53,20 @@
 // Creates if necessary and returns the managed object model for the application.
 - (NSManagedObjectModel *)managedObjectModel
 {
-    if (managedObjectModel) {
-        return managedObjectModel;
+    if (_managedObjectModel) {
+        return _managedObjectModel;
     }
 	
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"CocoaBookGallery" withExtension:@"momd"];
-    managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return managedObjectModel;
+    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    return _managedObjectModel;
 }
 
 // Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-    if (persistentStoreCoordinator) {
-        return persistentStoreCoordinator;
+    if (_persistentStoreCoordinator) {
+        return _persistentStoreCoordinator;
     }
     
     NSManagedObjectModel *mom = [self managedObjectModel];
@@ -94,8 +90,8 @@
             [[NSApplication sharedApplication] presentError:error];
             return nil;
         }
-   /* } else {
-            if (![[properties NSURLIsDirectoryKey] boolValue]) {
+    } else {
+        if (![properties[NSURLIsDirectoryKey] boolValue]) {
             // Customize and localize this error.
             NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]];
             
@@ -106,7 +102,6 @@
             [[NSApplication sharedApplication] presentError:error];
             return nil;
         }
-    */
     }
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"Gallery.storedata"];
@@ -115,16 +110,16 @@
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
-    persistentStoreCoordinator = coordinator;
+    _persistentStoreCoordinator = coordinator;
     
-    return persistentStoreCoordinator;
+    return _persistentStoreCoordinator;
 }
 
 // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) 
 - (NSManagedObjectContext *)managedObjectContext
 {
-    if (managedObjectContext) {
-        return managedObjectContext;
+    if (_managedObjectContext) {
+        return _managedObjectContext;
     }
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
@@ -136,10 +131,10 @@
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
-    managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [managedObjectContext setPersistentStoreCoordinator:coordinator];
+    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
 
-    return managedObjectContext;
+    return _managedObjectContext;
 }
 
 // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
@@ -166,7 +161,7 @@
 {
     // Save changes in the application's managed object context before the application terminates.
     
-    if (! managedObjectContext) {
+    if (!_managedObjectContext) {
         return NSTerminateNow;
     }
     

@@ -8,25 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
+@interface GalleryAppDelegate : NSObject <NSApplicationDelegate>
 
-@class CBMainWindow;
-@class CBAlbum;
-
-@interface GalleryAppDelegate : NSObject
-
-@property (retain)CBMainWindow *mainWindow;
-@property (retain)CBMainWindow *mainWindowController;
-@property (retain)CBAlbum *selectedAlbum;
-
-
-- (IBAction)newAlbum:(id)sender;
-
-// Provided by template
-@property (nonatomic, retain) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSWindow *window;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+- (IBAction)saveAction:(id)sender;
 
 
 
